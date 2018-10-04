@@ -17,23 +17,25 @@ public class move_2 : MonoBehaviour {
     void checkMoves()
     {
         Vector2 new_position = new Vector2(transform.position.x, transform.position.y);
-
-        if (Input.GetKey(KeyCode.A))
+        if (!static_information.isPaused)
         {
-            new_position.x -= 0.1f;
+            if (Input.GetKey(KeyCode.A))
+            {
+                new_position.x -= 0.1f;
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                new_position.x += 0.1f;
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                new_position.y -= 0.1f;
+            }
+            if (Input.GetKey(KeyCode.W))
+            {
+                new_position.y += 0.1f;
+            }
+            transform.position = new_position;
         }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            new_position.x += 0.1f;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            new_position.y -= 0.1f;
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            new_position.y += 0.1f;
-        }
-        transform.position = new_position;
     }
 }
