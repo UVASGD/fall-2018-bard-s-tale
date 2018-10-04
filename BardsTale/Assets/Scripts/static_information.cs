@@ -64,4 +64,8 @@ public static class static_information {
     // USE THIS TO SEE IF GAME IS DISPLAYING KEYS
     public static bool isShowingKeys = false;
     // NOTHING OUTSIDE OF UI NEEDS TO PAY ATTENTION TO THIS
+
+    // USE THESE TO HELP WITH SCENE MANAGEMENT
+    public static int start_menu_scene_index = 0;
+    public static int new_game_scene_index = 1;
 }

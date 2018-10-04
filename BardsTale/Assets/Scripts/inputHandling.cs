@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class inputHandling : MonoBehaviour {
 
@@ -170,6 +171,17 @@ public class inputHandling : MonoBehaviour {
                     {
                         ShowControls();
                     }
+                    if (Input.GetKeyDown(static_information.controls[13]))
+                    {
+                        // unpause the game, set everything back to defaults
+                        static_information.reading = false;
+                        static_information.controlling = false;
+                        static_information.isShowingKeys = false;
+                        static_information.isPaused = false;
+
+                        // change scenes to start menu
+                        SceneManager.LoadScene(static_information.start_menu_scene_index);
+                    }
                 }
 
                 // if we are in the controls menu
@@ -194,6 +206,7 @@ public class inputHandling : MonoBehaviour {
             }
             else
             {
+                // assign new hotkey
                 foreach (KeyCode k in static_information.set_of_all_possible_keys)
                 {
                     if (Input.GetKey(k))
