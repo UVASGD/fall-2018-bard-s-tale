@@ -16,19 +16,17 @@ public static class static_information {
      * 5        note2           k
      * 6        note3           l
      * 7        note4           ;
-     * 8        endnote         space
+     * 8        sendnotes       space
      * 9        spellbk         b
      * 10       useitem         lshift
      * 11       pickup          e
      * 12       pause           p
-     * 13       restart         n
-     * 14       controls        c
-     * 15       toggle help     v
+     * 13       toggle help     v
      */
     public static KeyCode[] controls = new KeyCode[] 
         {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L,
             KeyCode.Semicolon, KeyCode.Space, KeyCode.B, KeyCode.LeftShift, KeyCode.E,
-            KeyCode.P, KeyCode.N, KeyCode.C, KeyCode.V};
+            KeyCode.P, KeyCode.V};
 
     // USE THIS AS A WHITELIST OF USABLE KEYS FOR KEYBINDINGS
     public static KeyCode[] set_of_all_possible_keys = new KeyCode[]

@@ -19,19 +19,19 @@ public class move_2 : MonoBehaviour {
         Vector2 new_position = new Vector2(transform.position.x, transform.position.y);
         if (!static_information.isPaused)
         {
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(static_information.controls[1]))
             {
                 new_position.x -= 0.1f;
             }
-            if (Input.GetKey(KeyCode.D))
+            if (Input.GetKey(static_information.controls[3]))
             {
                 new_position.x += 0.1f;
             }
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(static_information.controls[2]))
             {
                 new_position.y -= 0.1f;
             }
-            if (Input.GetKey(KeyCode.W))
+            if (Input.GetKey(static_information.controls[0]))
             {
                 new_position.y += 0.1f;
             }
