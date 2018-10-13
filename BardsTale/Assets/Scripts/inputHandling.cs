@@ -38,102 +38,33 @@ public class inputHandling : MonoBehaviour {
         }
         else
         {
-            bool keyPressed = false;
             // For UI
             if (!static_information.hotkeyWaiting)
             {
-                // pause button checking
-                if (Input.GetKeyDown(static_information.controls[12]))
+                // if we are in the overworld
+                if (!static_information.controlling && !static_information.reading && !static_information.isPaused)
                 {
-                    keyPressed = true;
-                    // do some pause shit
-                    Debug.Log("Pause button clicked!");
-                    if (static_information.isPaused)
+                    // pause button checking
+                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(static_information.controls[12]))
                     {
-                        if (static_information.reading)
-                        {
-                            CloseBook();
-                        }
-                        else if (static_information.controlling)
-                        {
-                            ExitControls();
-                        }
-                        else
-                        {
-                            UnPause();
-                        }
-                    }
-                    else
-                    {
+                        // do some pause shit
+                        Debug.Log("Pause button clicked!");
                         Pause();
-                        static_information.isPaused = true;
+                        return;
                     }
-                }
-                // book button checking
-                if (Input.GetKeyDown(static_information.controls[9]))
-                {
-                    keyPressed = true;
-                    // do some book shit
-                    Debug.Log("Book button clicked!");
-                    if (!static_information.reading)
+                    // book button checking
+                    if (Input.GetKeyDown(static_information.controls[9]))
                     {
+                        // do some book shit
+                        Debug.Log("Book button clicked!");
                         OpenBook();
+                        return;
                     }
-                }
-                // movement and music are handled by the PC prefab and music interpretation engine, respectively, but we will mess with the UI for these too
-                if (static_information.isShowingKeys)
-                {
-                    foreach (Image i in HideableParent.GetComponentsInChildren<Image>())
-                    {
-                        // check each UI element, 'cause we don't know which key is being pressed, exactly
-                        // movement keys
-                        if (i.name.Equals("Up"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[0])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Left"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[1])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Down"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[2])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Right"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[3])) ? Color.green : Color.red;
-                        }
 
-                        // note keys
-                        if (i.name.Equals("Note 1"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[4])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Note 2"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[5])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Note 3"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[6])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Note 4"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[7])) ? Color.green : Color.red;
-                        }
-                        if (i.name.Equals("Send Notes"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[8])) ? Color.green : Color.red;
-                        }
-                        
-                    }
-                }
-
-                // toggle whether or not we show keys
-                if (!static_information.isPaused)
-                {
+                    // toggle showing the keys (not available during controls menu, spellbook, or pause menu)
                     if (Input.GetKeyDown(static_information.controls[13]))
                     {
+                        Debug.Log("Toggling keys!");
                         static_information.isShowingKeys = !static_information.isShowingKeys;
                         if (static_information.isShowingKeys)
                         {
@@ -144,13 +75,74 @@ public class inputHandling : MonoBehaviour {
                             setVisibility(HideableParent, false);
                         }
                     }
-                }
 
+                    // movement and music are handled by the PC prefab and music interpretation engine, respectively, but we will mess with the UI for these too
+                    if (static_information.isShowingKeys)
+                    {
+                        foreach (Image i in HideableParent.GetComponentsInChildren<Image>())
+                        {
+                            // check each UI element, 'cause we don't know which key is being pressed, exactly
+                            // movement keys
+                            if (i.name.Equals("Up"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[0])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Left"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[1])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Down"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[2])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Right"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[3])) ? Color.green : Color.red;
+                            }
+
+                            // note keys
+                            if (i.name.Equals("Note 1"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[4])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Note 2"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[5])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Note 3"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[6])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Note 4"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[7])) ? Color.green : Color.red;
+                            }
+                            if (i.name.Equals("Send Notes"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[8])) ? Color.green : Color.red;
+                            }
+
+                        }
+                        return;
+                    }
+                }
+                
                 // if we are in the pause menu
                 if (static_information.isPaused && !static_information.reading && !static_information.controlling)
                 {
+                    if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(static_information.controls[12]))
+                    {
+                        // unpause the game
+                        UnPause();
+                    }
+                    if (Input.GetKeyDown(static_information.controls[9]))
+                    {
+                        // open spellbook
+                        OpenBook();
+                    }
                     if (Input.GetKeyDown(KeyCode.C))
                     {
+                        // open controls menu
                         ShowControls();
                         // don't want to replace C with C
                         return;
@@ -165,81 +157,85 @@ public class inputHandling : MonoBehaviour {
 
                         // change scenes to start menu
                         SceneManager.LoadScene(static_information.start_menu_scene_index);
-                        return;
                     }
                 }
 
                 // if we are in the spellbook menu
                 if (static_information.reading && static_information.isPaused)
                 {
-                    // go through the spellbook shit
-                    foreach (Image i in SpellbookParent.GetComponentsInChildren<Image>())
+                    if (Input.GetKeyDown(static_information.controls[12]) || Input.GetKeyDown(KeyCode.Escape))
                     {
-                        // there's an image called space which references the keybinding that sends notes
-                        // it's by default the second image, so we can find it that way
-                        Image cache = SpellbookParent.GetComponentsInChildren<Image>()[1];
-                        if (i.name.Equals("Space"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[8])) ? Color.green : Color.red;
-                            if (Input.GetKeyDown(static_information.controls[8]))
-                            {
-                                Text t = cache.GetComponentsInChildren<Text>()[0];
-                                Debug.Log("Text cleared!");
-                                t.text = "";
-                            }
-                        }
-
-                        if (i.name.Equals("Note 1"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[4])) ? Color.green : Color.red;
-                            if (Input.GetKeyDown(static_information.controls[4]))
-                            {
-                                if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
-                                {
-                                    cache.GetComponentsInChildren<Text>()[0].text = "";
-                                }
-                                cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[4].ToString());
-                            }
-                        }
-                        if (i.name.Equals("Note 2"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[5])) ? Color.green : Color.red;
-                            if (Input.GetKeyDown(static_information.controls[5]))
-                            {
-                                if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
-                                {
-                                    cache.GetComponentsInChildren<Text>()[0].text = "";
-                                }
-                                cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[5].ToString());
-                            }
-                        }
-                        if (i.name.Equals("Note 3"))
-                        { 
-                            i.color = (Input.GetKey(static_information.controls[6])) ? Color.green : Color.red;
-                            if (Input.GetKeyDown(static_information.controls[6]))
-                            {
-                                if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
-                                {
-                                    cache.GetComponentsInChildren<Text>()[0].text = "";
-                                }
-                                cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[6].ToString());
-                            }
-                        }
-                        if (i.name.Equals("Note 4"))
-                        {
-                            i.color = (Input.GetKey(static_information.controls[7])) ? Color.green : Color.red;
-                            if (Input.GetKeyDown(static_information.controls[7]))
-                            {
-                                if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
-                                {
-                                    cache.GetComponentsInChildren<Text>()[0].text = "";
-                                }
-                                cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[7].ToString());
-                            }
-                        }
-
+                        CloseBook();
                     }
-                    
+                    else
+                    {
+                        // go through the spellbook shit
+                        foreach (Image i in SpellbookParent.GetComponentsInChildren<Image>())
+                        {
+                            // there's an image called space which references the keybinding that sends notes
+                            // it's by default the second image, so we can find it that way
+                            Image cache = SpellbookParent.GetComponentsInChildren<Image>()[1];
+                            if (i.name.Equals("Space"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[8])) ? Color.green : Color.red;
+                                if (Input.GetKeyDown(static_information.controls[8]))
+                                {
+                                    Text t = cache.GetComponentsInChildren<Text>()[0];
+                                    Debug.Log("Text cleared!");
+                                    t.text = "";
+                                }
+                            }
+                            if (i.name.Equals("Note 1"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[4])) ? Color.green : Color.red;
+                                if (Input.GetKeyDown(static_information.controls[4]))
+                                {
+                                    if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
+                                    {
+                                        cache.GetComponentsInChildren<Text>()[0].text = "";
+                                    }
+                                    cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[4].ToString());
+                                }
+                            }
+                            if (i.name.Equals("Note 2"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[5])) ? Color.green : Color.red;
+                                if (Input.GetKeyDown(static_information.controls[5]))
+                                {
+                                    if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
+                                    {
+                                        cache.GetComponentsInChildren<Text>()[0].text = "";
+                                    }
+                                    cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[5].ToString());
+                                }
+                            }
+                            if (i.name.Equals("Note 3"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[6])) ? Color.green : Color.red;
+                                if (Input.GetKeyDown(static_information.controls[6]))
+                                {
+                                    if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
+                                    {
+                                        cache.GetComponentsInChildren<Text>()[0].text = "";
+                                    }
+                                    cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[6].ToString());
+                                }
+                            }
+                            if (i.name.Equals("Note 4"))
+                            {
+                                i.color = (Input.GetKey(static_information.controls[7])) ? Color.green : Color.red;
+                                if (Input.GetKeyDown(static_information.controls[7]))
+                                {
+                                    if (cache.GetComponentsInChildren<Text>()[0].text.Equals("Notes you enter will appear here!"))
+                                    {
+                                        cache.GetComponentsInChildren<Text>()[0].text = "";
+                                    }
+                                    cache.GetComponentsInChildren<Text>()[0].text += charify(static_information.controls[7].ToString());
+                                }
+                            }
+
+                        }
+                    }
                 }
 
                 // if we are in the controls menu
@@ -322,8 +318,6 @@ public class inputHandling : MonoBehaviour {
                     changeIndex = -1;
                 }
             }
-
-            if (keyPressed) { cooldown = 3; }
         }
     }
 
@@ -338,6 +332,7 @@ public class inputHandling : MonoBehaviour {
         // un-show every set of menus, but not the AlwaysOns
         setVisibility(SpellbookParent, false);
         setVisibility(HideableParent, false);
+        setVisibility(ControlsParent, false);
     }
 
     private void UnPause()
@@ -368,6 +363,7 @@ public class inputHandling : MonoBehaviour {
         setVisibility(HideableParent, false);
         setVisibility(PauseParent, false);
         setVisibility(AlwaysOnParent, false);
+        setVisibility(ControlsParent, false);
     }
 
     private void CloseBook()
@@ -397,6 +393,11 @@ public class inputHandling : MonoBehaviour {
 
         // it is always in the pause menu before going here, so get rid of the pause menu
         setVisibility(PauseParent, false);
+
+        // for quality control, make sure everything else is un-shown
+        setVisibility(AlwaysOnParent, false);
+        setVisibility(SpellbookParent, false);
+        setVisibility(HideableParent, false);
     }
 
     private void ExitControls()
@@ -422,9 +423,30 @@ public class inputHandling : MonoBehaviour {
         }
     }
 
+    // Assumes the @param input is the toString of a KeyCode, and turns it into a 
+    // shorter, more pallatable string to be displayed on an image's text box.
     private string charify(string input)
     {
         string toReturn = input;
+
+        // Turn numbers from "Alpha#" to just "#"
+        if (toReturn.Length > 5 && toReturn.Substring(0, 5).Equals("Alpha"))
+        {
+            toReturn = toReturn.Substring(5);
+        }
+
+        // Turn arrow keys from "<Dir>Arrow" to just "<Dir>"
+        if (toReturn.Length > 5 && toReturn.Substring(toReturn.Length - 5).Equals("Arrow"))
+        {
+            toReturn = toReturn.Substring(0, toReturn.Length - 5);
+        }
+
+        // Turn keypads from "Keypad#" to just "k#"
+        if (toReturn.Length > 6 && toReturn.Substring(0, 6).Equals("Keypad"))
+        {
+            toReturn = "k" + toReturn.Substring(6);
+        }
+
         switch (toReturn)
         {
             case "Semicolon":
