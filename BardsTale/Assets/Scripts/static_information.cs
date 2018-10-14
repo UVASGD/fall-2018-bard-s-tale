@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class static_information {
     // USE THIS TO REFERENCE PLAYER LOCATION
-    public static float[] player_position = new float[]{};
+    public static float[] player_position = new float[] { };
 
     // USE THIS TO REFERENCE HOTKEYS, can easily verify within scripts
     /* Index    Function        Default Hotkey (as a string)
@@ -23,7 +23,7 @@ public static class static_information {
      * 12       pause           p
      * 13       toggle help     v
      */
-    public static KeyCode[] controls = new KeyCode[] 
+    public static KeyCode[] controls = new KeyCode[]
         {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.J, KeyCode.K, KeyCode.L,
             KeyCode.Semicolon, KeyCode.Space, KeyCode.B, KeyCode.LeftShift, KeyCode.E,
             KeyCode.P, KeyCode.V};
@@ -66,4 +66,11 @@ public static class static_information {
     // USE THESE TO HELP WITH SCENE MANAGEMENT
     public static int start_menu_scene_index = 0;
     public static int new_game_scene_index = 1;
+
+    // USE THIS TO SEE WHAT ROOM THE BARD IS IN
+    public static int bard_room_location = 0;
+
+    // USE THIS TO GET LIGHT-LEVELS IN ROOMS
+    public static float[] room_light_levels = new float[]
+        { 0.0,0.0,0.0,0.0,0.0,0.0};
 }
