@@ -72,7 +72,7 @@ public static class static_information {
 
     // USE THIS TO GET LIGHT-LEVELS IN ROOMS
     public static float[] room_light_levels = new float[]
-        { 0.0,0.0,0.0,0.0,0.0,0.0};
+        { 0,0,0,0,0,0};
 
     //USE THIS TO GET THE MAXIMUM LIGHT VALUE
     //A.K.A.: how many seconds until the light hits the minimum light value
