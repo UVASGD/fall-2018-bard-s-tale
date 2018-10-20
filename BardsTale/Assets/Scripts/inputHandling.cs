@@ -52,6 +52,13 @@ public class inputHandling : MonoBehaviour {
                         Pause();
                         return;
                     }
+
+                    ///LIGHT SPELL TESTING
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+
+                    }
+
                     // book button checking
                     if (Input.GetKeyDown(static_information.controls[9]))
                     {

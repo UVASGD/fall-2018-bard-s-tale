@@ -77,4 +77,7 @@ public static class static_information {
     //USE THIS TO GET THE MAXIMUM LIGHT VALUE
     //A.K.A.: how many seconds until the light hits the minimum light value
     public static float max_light_level = 30;
+
+    ///<summary>MAXIMUM OPACITY FOR DARKNESS</summary>
+    public static float maximumDarknessOpacity = 0.6f;
 }
