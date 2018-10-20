@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class lightMechanics : MonoBehavior
+public class lightMechanics : MonoBehaviour
 {
     //how many seconds the first-level light spell adds to the light-level in the room
     //A.K.A.: After how many seconds should you cast light to maintain the light-level
@@ -13,16 +13,21 @@ public class lightMechanics : MonoBehavior
 
     void Start()
     {
-
+        for (int i = 0; i < static_information.room_light_levels.Length; i++)
+        {
+            static_information.room_light_levels[i] = 25;
+        }
     }
 
     void Update()
     {
-        if (!static_information.isPauased)
-        {
-            float timePassed = time.deltaTime();
 
-            for (int i = 0; i < static_information.room_light_levels.length; i++)
+        if (!static_information.isPaused)
+        {
+
+            float timePassed = Time.deltaTime;
+
+            for (int i = 0; i < static_information.room_light_levels.Length; i++)
             {
                 if (static_information.room_light_levels[i] < timePassed)
                 {
