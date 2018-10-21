@@ -38,6 +38,8 @@ public class SpellCasting : MonoBehaviour {
             baseSpellList[i] = spellString;
             Debug.Log(baseSpellList[i]);
         }
+
+        static_information.lights = GameObject.FindObjectsOfType<lightMechanics>();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +97,26 @@ public class SpellCasting : MonoBehaviour {
                     Debug.Log("Successful Spell");
                     currentString = "";
                     startKey = -1;
+
+                    //call appropriate function
+                    switch(i)
+                    {
+                        case 0: //light spell
+                            foreach(lightMechanics light in static_information.lights)
+                            {
+                                light.addLight(1);
+                            }
+                            break;
+                        case 1: //fireball spell
+                            break;
+                        case 2: //healing spell
+                            break;
+                        case 3: //mario spell
+                            break;
+                        case 4: //beethoven spell
+                            break;
+                    }
+
                     return;
                 }
             }
@@ -109,7 +131,7 @@ public class SpellCasting : MonoBehaviour {
     {
         Debug.Log("Played: " + key + ", " + start);
 
-        var note = -1;
+        float note = -1;
         var transpose = -4;
 
         switch (key)
@@ -118,6 +140,7 @@ public class SpellCasting : MonoBehaviour {
                 switch (start)
                 {
                     case 4:
+                        note = 7;
                         break;
                     case 5:
                         break;
@@ -133,6 +156,7 @@ public class SpellCasting : MonoBehaviour {
                 switch (start)
                 {
                     case 4:
+                        note = 9;
                         break;
                     case 5:
                         break;
@@ -148,6 +172,7 @@ public class SpellCasting : MonoBehaviour {
                 switch (start)
                 {
                     case 4:
+                        note = 11;
                         break;
                     case 5:
                         break;
@@ -163,6 +188,7 @@ public class SpellCasting : MonoBehaviour {
                 switch (start)
                 {
                     case 4:
+                        note = 11.75f;
                         break;
                     case 5:
                         break;
