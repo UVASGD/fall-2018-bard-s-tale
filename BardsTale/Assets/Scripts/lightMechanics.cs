@@ -24,10 +24,6 @@ public class lightMechanics : MonoBehaviour
         // player.spellcontroller.lightSpell += addLight;
         currentLevel = startLevel;
         sr = GetComponent<SpriteRenderer>();
-        for (int i = 0; i < static_information.room_light_levels.Length; i++)
-        {
-            static_information.room_light_levels[i] = 25;
-        }
     }
 
     void Update()
@@ -49,6 +45,10 @@ public class lightMechanics : MonoBehaviour
             //    }
             //}
             currentLevel -= Time.deltaTime;
+            if(currentLevel < 0)
+            {
+                currentLevel = 0;
+            }
             float opacity = (currentLevel <= static_information.max_light_level)?
                 static_information.maximumDarknessOpacity - ((currentLevel / static_information.max_light_level) * static_information.maximumDarknessOpacity) : 0;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, opacity);
