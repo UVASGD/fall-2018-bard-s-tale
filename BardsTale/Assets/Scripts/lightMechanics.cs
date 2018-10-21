@@ -70,11 +70,11 @@ public class lightMechanics : MonoBehaviour
     public void addLight(float multiplier)
     {
         if (!playerInside) return;
-        static_information.room_light_levels[static_information.bard_room_location] += light_spell_increment * multiplier;
+        currentLevel += light_spell_increment * multiplier;
 
-        if(static_information.room_light_levels[static_information.bard_room_location] > static_information.max_light_level)
+        if(currentLevel > static_information.max_light_level)
         {
-            static_information.room_light_levels[static_information.bard_room_location] = static_information.max_light_level;
+            currentLevel = static_information.max_light_level;
         }
         //call animations here
     }
