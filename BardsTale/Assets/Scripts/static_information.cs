@@ -82,5 +82,5 @@ public static class static_information {
     public static float maximumDarknessOpacity = 0.6f;
 
     //USE THIS TO GET LIGHTS IN ROOMS
-    public static lightMechanics[] lights;
+    //public static lightMechanics[] lights;
 }

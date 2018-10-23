@@ -10,7 +10,20 @@ using UnityEngine;
 
 // space to cast
 
+ /// <summary>
+ /// Event for casting the light spell
+ /// </summary>
+ /// <param name="multiplier"> value in which to add to the current light value of the room </param>
+public delegate void SpellLightEvent(float multiplier);
+public delegate void SpellFireboltEvent();
+public delegate void SpellHealEvent(float healVal);
+
+
 public class SpellCasting : MonoBehaviour {
+
+    // Singleton reference
+    // THERE CAN ONLY BE ONE. EVER.
+    public static SpellCasting instance;
 
     protected string currentString = "";
     protected int startKey = -1;
@@ -24,8 +37,25 @@ public class SpellCasting : MonoBehaviour {
 
     public AudioSource audio;
 
+    // Spell casting events
+    public event SpellLightEvent OnCastLightSpell;
+    public event SpellFireboltEvent OnCastFireboltSpell;
+    public event SpellHealEvent OnCastHealSpell;
+
+    void Awake() {
+        // ensures that there will only ever be one SpellCasting script active
+        // in the entire Scene at runtime
+        if (instance != null) {
+            Destroy(this);
+            return;
+        }
+        
+        instance = this;
+    }
+
 	// Use this for initialization
 	void Start () {
+
         sequencesList = new int[][] { lightSpellSequence, boltSpellSequence, healSpellSequence, marioSpellSequence, beethoven5thSpellSequence };
         baseSpellList = new string[sequencesList.Length];
         for(int i = 0; i < sequencesList.Length; i++)
@@ -39,7 +69,7 @@ public class SpellCasting : MonoBehaviour {
             Debug.Log(baseSpellList[i]);
         }
 
-        static_information.lights = GameObject.FindObjectsOfType<lightMechanics>();
+        // static_information.lights = GameObject.FindObjectsOfType<lightMechanics>();
 	}
 	
 	// Update is called once per frame
@@ -102,10 +132,11 @@ public class SpellCasting : MonoBehaviour {
                     switch(i)
                     {
                         case 0: //light spell
-                            foreach(lightMechanics light in static_information.lights)
-                            {
-                                light.addLight(1);
-                            }
+                                //foreach(lightMechanics light in static_information.lights)
+                                //{
+                                //    light.addLight(1);
+                                //}
+                            CastLight();
                             break;
                         case 1: //fireball spell
                             break;
@@ -218,4 +249,19 @@ public class SpellCasting : MonoBehaviour {
             audio.Play();
         }
     }
+
+
+    #region =========== Spells ==============
+
+    // For Unit Testing
+    public void CastLight() {
+        // evoke delegate to tell all rooms to update light
+        // if no rooms have subcribed to this event, than no rooms will be updated
+        if (OnCastLightSpell != null) OnCastLightSpell(1);
+    }
+
+    public void CastFirebolt() { OnCastFireboltSpell(); }
+    public void CastHeal() { OnCastHealSpell(5); }
+
+    #endregion
 }
