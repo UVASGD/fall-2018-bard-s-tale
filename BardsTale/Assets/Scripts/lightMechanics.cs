@@ -5,8 +5,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-//public Event 
-
 public class lightMechanics : MonoBehaviour
 {
     ///<summary>
@@ -30,9 +28,15 @@ public class lightMechanics : MonoBehaviour
 
     void Start()
     {
-        // player.spellcontroller.lightSpell += addLight;
+
         currentLightLevel = startLevel;
         sr = GetComponent<SpriteRenderer>();
+        print(sr);
+        print(sr.color);
+
+        // Subscribe to the Light Spell casting event
+        // when the player casts a spell, this room's instance of addLight will be called
+        SpellCasting.instance.OnCastLightSpell += addLight;
     }
 
     void Update()
@@ -63,7 +67,8 @@ public class lightMechanics : MonoBehaviour
 
             //making sure that light cannot be greater than max_light_level
             float opacity = (currentLightLevel <= static_information.max_light_level)?
-                static_information.maximumDarknessOpacity - ((currentLightLevel / static_information.max_light_level) * static_information.maximumDarknessOpacity) : 0;
+                static_information.maximumDarknessOpacity - ((currentLightLevel / static_information.max_light_level) 
+                * static_information.maximumDarknessOpacity) : 0;
 
             //changes the opacity of the spriteRenderer (the black box)
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, opacity);
