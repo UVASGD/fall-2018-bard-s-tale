@@ -66,4 +66,8 @@ public static class static_information {
     // USE THESE TO HELP WITH SCENE MANAGEMENT
     public static int start_menu_scene_index = 0;
     public static int new_game_scene_index = 1;
+
+    // USE THIS TO HELP TRACK THE PC
+    public static GameObject hero = GameObject.Find("Hero");
+    public static GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 }
