@@ -7,6 +7,7 @@ using UnityEngine;
 // LK;JK; (health)
 // LLLKL;J (super mario)
 // ;;;KLLLJ (Bethoveen's 5th)
+// KJKJKJLKJ (Sonic)
 
 // space to cast
 
@@ -32,6 +33,7 @@ public class SpellCasting : MonoBehaviour {
     protected int[] healSpellSequence = new int[] { 6, 5, 7, 4, 5, 7 };
     protected int[] marioSpellSequence = new int[] { 6, 6, 6, 5, 6, 7, 4 };
     protected int[] beethoven5thSpellSequence = new int[] { 7, 7, 7, 5, 6, 6, 6, 4 };
+    protected int[] sonicSpellSequence = new int[] { 5, 4, 5, 4, 5, 4, 6, 5, 4 };
     protected int[][] sequencesList;
     protected string[] baseSpellList;
 
@@ -56,7 +58,8 @@ public class SpellCasting : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        sequencesList = new int[][] { lightSpellSequence, boltSpellSequence, healSpellSequence, marioSpellSequence, beethoven5thSpellSequence };
+        sequencesList = new int[][] { lightSpellSequence, boltSpellSequence, healSpellSequence,
+            marioSpellSequence, beethoven5thSpellSequence, sonicSpellSequence };
         baseSpellList = new string[sequencesList.Length];
         for(int i = 0; i < sequencesList.Length; i++)
         {
@@ -146,6 +149,8 @@ public class SpellCasting : MonoBehaviour {
                             break;
                         case 4: //beethoven spell
                             break;
+                        case 5: //sonic spell
+                            break;
                     }
 
                     return;
@@ -174,6 +179,7 @@ public class SpellCasting : MonoBehaviour {
                         note = 7;
                         break;
                     case 5:
+                        note = 9;
                         break;
                     case 6:
                         note = 7;
@@ -190,6 +196,7 @@ public class SpellCasting : MonoBehaviour {
                         note = 9;
                         break;
                     case 5:
+                        note = 11;
                         break;
                     case 6:
                         note = 12;
@@ -206,6 +213,7 @@ public class SpellCasting : MonoBehaviour {
                         note = 11;
                         break;
                     case 5:
+                        note = 12;
                         break;
                     case 6:
                         note = 16;
@@ -222,6 +230,7 @@ public class SpellCasting : MonoBehaviour {
                         note = 11.75f;
                         break;
                     case 5:
+                        note = 14;
                         break;
                     case 6:
                         note = 19;
