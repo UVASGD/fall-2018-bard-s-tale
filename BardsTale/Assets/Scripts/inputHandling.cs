@@ -52,13 +52,6 @@ public class inputHandling : MonoBehaviour {
                         Pause();
                         return;
                     }
-
-                    ///LIGHT SPELL TESTING
-                    if (Input.GetKeyDown(KeyCode.Space))
-                    {
-
-                    }
-
                     // book button checking
                     if (Input.GetKeyDown(static_information.controls[9]))
                     {
@@ -432,7 +425,7 @@ public class inputHandling : MonoBehaviour {
 
     // Assumes the @param input is the toString of a KeyCode, and turns it into a 
     // shorter, more pallatable string to be displayed on an image's text box.
-    public static string charify(string input)
+    private string charify(string input)
     {
         string toReturn = input;
 
