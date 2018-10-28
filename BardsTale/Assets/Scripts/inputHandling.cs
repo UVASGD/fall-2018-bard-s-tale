@@ -425,7 +425,7 @@ public class inputHandling : MonoBehaviour {
 
     // Assumes the @param input is the toString of a KeyCode, and turns it into a 
     // shorter, more pallatable string to be displayed on an image's text box.
-    private string charify(string input)
+    public static string charify(string input)
     {
         string toReturn = input;
 
