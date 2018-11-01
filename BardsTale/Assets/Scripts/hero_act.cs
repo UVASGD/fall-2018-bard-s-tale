@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class hero_act : MonoBehaviour {
 
@@ -14,16 +15,45 @@ public class hero_act : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.J))
+        /*if (static_information.isPaused == false)
         {
-            Debug.Log("Size of enemies list: " + static_information.enemies.Length);
-            static_information.enemies[0].GetComponent<skeleton_act>().takeDamage();
-        }
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                static_information.has_casted_fireball = true;
+                foreach (GameObject g in static_information.enemies)
+                {
+                    if (static_information.is_in_bounds(g.transform.position))
+                    {
+                        if (g.GetComponent<skeleton_act>().is_dead == false)
+                        {
+                            // Debug.Log("Size of enemies list: " + static_information.enemies.Length);
+                            g.GetComponent<skeleton_act>().takeDamage();
+                            break;
+                        }
+                    }
+                }
+            }
+        }*/
 	}
 
     public void takeDamage()
     {
         health--;
-        Debug.Log("Took damage! Health is " + health);
+        if (health <= 0)
+        {
+            Debug.Log("Hero Died!");
+            SceneManager.LoadScene(0);
+        }
+        GameObject.Find("Health Parent").GetComponent<adjustHealth>().setHealth(health);
+        //Debug.Log("Took damage! Health is " + health);
+    }
+
+    public void healDamage()
+    {
+        if (health < 5)
+        {
+            health++;
+        }
+        GameObject.Find("Health Parent").GetComponent<adjustHealth>().setHealth(health);
     }
 }

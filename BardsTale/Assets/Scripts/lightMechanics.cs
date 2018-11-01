@@ -68,7 +68,7 @@ public class lightMechanics : MonoBehaviour
             //making sure that light cannot be greater than max_light_level
             float opacity = (currentLightLevel <= static_information.max_light_level)?
                 static_information.maximumDarknessOpacity - ((currentLightLevel / static_information.max_light_level) 
-                * static_information.maximumDarknessOpacity) : 0;
+                * static_information.maximumDarknessOpacity): 0;
 
             //changes the opacity of the spriteRenderer (the black box)
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, opacity);

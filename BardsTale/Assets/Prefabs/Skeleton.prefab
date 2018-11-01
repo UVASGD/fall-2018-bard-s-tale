@@ -50,7 +50,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1288302405426152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4d722bb496813f4ea5f5608b9463c33, type: 3}
+  m_Script: {fileID: 11500000, guid: 38ce34c5b6170ca45a1f7ac1ab2579e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   path: Sprites/Enemies/Skeleton
@@ -65,10 +65,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1288302405426152}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1ae7e69554951545836acf596dd5023, type: 3}
+  m_Script: {fileID: 11500000, guid: 5dcfcbd60716f604f86f999d0aea9873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dimensions: {x: 0.067, y: 0.167}
   movespeed: 0.02
+  is_dead: 0
 --- !u!212 &212794464094475762
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -104,12 +106,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d0daffd234190d34a923e031e8f14e34, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2d12b1034f9190a4d80e11db1545159b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4.48, y: 0.32}
+  m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

@@ -51,7 +51,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643496887547008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63992c5aa7df89e438aca1d41444b074, type: 3}
+  m_Script: {fileID: 11500000, guid: fe4f9f9f422cfac4f99cf9b82ed70e5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
@@ -63,13 +63,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643496887547008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c5e63ea1031fd94f922aec81e90f33e, type: 3}
+  m_Script: {fileID: 11500000, guid: 373a522e914107541b676e7312ed422b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   path: Sprites/Bard
   animationStarts: 0000000004000000080000000c000000
   animationLengths: 04000000040000000400000004000000
-  cooldown: 8
+  cooldown: 4
 --- !u!114 &114959061605657774
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -78,10 +78,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643496887547008}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 531e2aadec01f4b428550f9b85b1b71d, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baf254ad3c3f5e42883b7e00d3d31f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.05
+  speed: 0.03
 --- !u!212 &212621874549996626
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -117,7 +117,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cee669de45ebcb24fb8f0adbe48f72e0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e011457ed97838a4fb6c02fded514855, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

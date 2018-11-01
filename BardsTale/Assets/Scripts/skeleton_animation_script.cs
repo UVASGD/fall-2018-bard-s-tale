@@ -22,7 +22,7 @@ public class skeleton_animation_script : MonoBehaviour {
 	void Start ()
     {
         spritesList = Resources.LoadAll<Sprite>(path);
-        Debug.Log(spritesList.Length);
+        // Debug.Log(spritesList.Length);
 
         animationLength = animationLengths[0];
         animationStart = animationStarts[0];
@@ -37,14 +37,18 @@ public class skeleton_animation_script : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (GetComponent<skeleton_act>().is_dead)
+        {
+            return;
+        }
 
         // CHANGE FRAME
-        if (skeleton_act.move_direction == -1)
+        if (GetComponent<skeleton_act>().move_direction == -1)
         {
             animationLength = animationLengths[0]; // 2
             animationStart = animationStarts[0]; // 0
         }
-        if (skeleton_act.move_direction != -1)
+        if (GetComponent<skeleton_act>().move_direction != -1)
         {
             animationLength = animationLengths[1]; // 3
             animationStart = animationStarts[1]; // 2
@@ -60,7 +64,7 @@ public class skeleton_animation_script : MonoBehaviour {
             animationStart = animationStarts[3]; // 10
         }
 
-        if (skeleton_act.move_direction == 2)
+        if (GetComponent<skeleton_act>().move_direction == 2)
         {
             animation_type_offset = 2 * animation_type_offset_incrementer;
             if (GetComponent<SpriteRenderer>().flipX)
@@ -68,7 +72,7 @@ public class skeleton_animation_script : MonoBehaviour {
                 GetComponent<SpriteRenderer>().flipX = false;
             }
         }
-        if (skeleton_act.move_direction == 3)
+        if (GetComponent<skeleton_act>().move_direction == 3)
         {
             animation_type_offset = 2 * animation_type_offset_incrementer;
             if (GetComponent<SpriteRenderer>().flipX == false)
@@ -76,11 +80,11 @@ public class skeleton_animation_script : MonoBehaviour {
                 GetComponent<SpriteRenderer>().flipX = true;
             }
         }
-        if (skeleton_act.move_direction == 1)
+        if (GetComponent<skeleton_act>().move_direction == 1)
         {
             animation_type_offset = animation_type_offset_incrementer;
         }
-        if (skeleton_act.move_direction == 0)
+        if (GetComponent<skeleton_act>().move_direction == 0)
         {
             animation_type_offset = 0;
         }

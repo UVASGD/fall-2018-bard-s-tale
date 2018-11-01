@@ -9,6 +9,7 @@ TagManager:
   - VolumeSlider
   - Ally
   - Enemy
+  - Fireball
   layers:
   - Default
   - TransparentFX
@@ -51,6 +52,15 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 30455271
+    locked: 0
+  - name: Doreground
+    uniqueID: 771626457
+    locked: 0
+  - name: Moreground
+    uniqueID: 394251543
+    locked: 0
+  - name: Lightground
+    uniqueID: 1153555475
     locked: 0
   - name: UI
     uniqueID: 2310029319

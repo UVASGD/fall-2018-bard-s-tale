@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public static class static_information {
-    // USE THIS TO REFERENCE PLAYER LOCATION
-    public static float[] player_position = new float[]{};
-
     // USE THIS TO REFERENCE HOTKEYS, can easily verify within scripts
     /* Index    Function        Default Hotkey (as a string)
      * 0        up              w    
@@ -68,6 +65,96 @@ public static class static_information {
     public static int new_game_scene_index = 1;
 
     // USE THIS TO HELP TRACK THE PC
-    public static GameObject hero = GameObject.Find("Hero");
-    public static GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    public static GameObject hero;
+    public static GameObject camera;
+    public static GameObject[] enemies;
+    public static GameObject[] fireballs;
+
+    public static void Awake()
+    {
+        hero = GameObject.Find("Hero");
+        camera = GameObject.Find("Main Camera");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        fireballs = GameObject.FindGameObjectsWithTag("Fireball");
+    }
+
+    // USE THIS TO HELP CHANGE CAMERA FOR ROOMS (x_offset, y_offset)
+    public static float[] camera_corner_offset = new float[] { 2.4f - 0.51f, 1.8f - 0.4f};
+
+    // USE THIS TO TELL US WHICH ROOM YOU'RE IN
+    public static int room_index = 0;
+
+    // USE THIS TO CHANGE LIGHT LEVELS
+    public static float max_light_level = 30.0f;
+    public static float[] room_light_levels = new float[] { 0, 0, 0, 0, 0, 0 };
+    public static float maximumDarknessOpacity = 0.06f;
+
+    // USE THESE FOR SOME DOOR CONDITIONS
+    public static bool has_casted_fireball = false; 
+
+    public static bool is_the_current_room_clear()
+    {
+        foreach (GameObject g in enemies)
+        {
+            if (is_in_bounds(g.transform.position))
+            {
+                // Debug.Log("Found an enemy. Its life status: " + (g.GetComponent<skeleton_act>().is_dead ? "dead." : "alive."));
+                if (g.GetComponent<skeleton_act>().is_dead == false)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    // USE THIS TO FIGURE OUT WHICH ROOM YOU'RE IN
+    public static int which_room_am_I_in(float x_coord, float y_coord)
+    {
+        // nah, man. this is totally efficient, shut up
+        if (x_coord < 2.4 && x_coord > -2.4)
+        {
+            return 0;
+        }
+        else if (x_coord < 16.8 && x_coord > 12.0)
+        {
+            return 5;
+        }
+        else if (x_coord > 2.4 && x_coord < 7.2)
+        {
+            return 1;
+        }
+        else
+        {
+            if (y_coord <  1.8 && y_coord > -1.8)
+            {
+                return 2;
+            }
+            else if (y_coord < 5.4 && y_coord > 1.8)
+            {
+                return 3;
+            }
+            else if (y_coord < 8.2 && y_coord > 5.4)
+            {
+                return 4;
+            }
+        }
+        return -1;
+    }
+
+    public static bool is_in_bounds(Vector2 position)
+    {
+        // grab important characteristics from main camera
+        Vector2 central_cam_position = camera.transform.position;
+        Vector2 bottom_left_corner = new Vector2(central_cam_position.x - camera_corner_offset[0], central_cam_position.y - camera_corner_offset[1]);
+        Vector2 top_right_corner = new Vector2(central_cam_position.x + camera_corner_offset[0], central_cam_position.y + camera_corner_offset[1]);
+        if (bottom_left_corner.x < position.x && position.x < top_right_corner.x)
+        {
+            if (bottom_left_corner.y < position.y && position.y < top_right_corner.y)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

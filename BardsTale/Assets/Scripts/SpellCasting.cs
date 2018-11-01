@@ -69,7 +69,7 @@ public class SpellCasting : MonoBehaviour {
                 spellString += inputHandling.charify(static_information.controls[sequencesList[i][j]].ToString());
             }
             baseSpellList[i] = spellString;
-            Debug.Log(baseSpellList[i]);
+            // Debug.Log(baseSpellList[i]);
         }
 
         // static_information.lights = GameObject.FindObjectsOfType<lightMechanics>();
@@ -77,95 +77,119 @@ public class SpellCasting : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(static_information.controls[4]))
+        if (!static_information.isPaused)
         {
-            currentString += inputHandling.charify(static_information.controls[4].ToString());
-            if(startKey == -1)
+            if (Input.GetKeyDown(static_information.controls[4]))
             {
-                startKey = 4;
-            }
-            playTone(4, startKey);
-
-            Debug.Log(currentString);
-        }
-        else if (Input.GetKeyDown(static_information.controls[5]))
-        {
-            currentString += inputHandling.charify(static_information.controls[5].ToString());
-            if (startKey == -1)
-            {
-                startKey = 5;
-            }
-            playTone(5, startKey);
-
-            Debug.Log(currentString);
-        }
-        else if (Input.GetKeyDown(static_information.controls[6]))
-        {
-            currentString += inputHandling.charify(static_information.controls[6].ToString());
-            if (startKey == -1)
-            {
-                startKey = 6;
-            }
-            playTone(6, startKey);
-
-            Debug.Log(currentString);
-        }
-        else if (Input.GetKeyDown(static_information.controls[7]))
-        {
-            currentString += inputHandling.charify(static_information.controls[7].ToString());
-            if (startKey == -1)
-            {
-                startKey = 7;
-            }
-            playTone(7, startKey);
-
-            Debug.Log(currentString);
-        }
-        else if (Input.GetKeyDown(static_information.controls[8]))
-        {
-            for(int i = 0; i < baseSpellList.Length; i++)
-            {
-                if(currentString.Equals(baseSpellList[i]))
+                currentString += inputHandling.charify(static_information.controls[4].ToString());
+                if (startKey == -1)
                 {
-                    Debug.Log("Successful Spell");
-                    currentString = "";
-                    startKey = -1;
-
-                    //call appropriate function
-                    switch(i)
-                    {
-                        case 0: //light spell
-                                //foreach(lightMechanics light in static_information.lights)
-                                //{
-                                //    light.addLight(1);
-                                //}
-                            CastLight();
-                            break;
-                        case 1: //fireball spell
-                            break;
-                        case 2: //healing spell
-                            break;
-                        case 3: //mario spell
-                            break;
-                        case 4: //beethoven spell
-                            break;
-                        case 5: //sonic spell
-                            break;
-                    }
-
-                    return;
+                    startKey = 4;
                 }
+                playTone(4, startKey);
+
+                // Debug.Log(currentString);
             }
-            Debug.Log("Spell Failed");
-            currentString = "";
-            startKey = -1;
+            else if (Input.GetKeyDown(static_information.controls[5]))
+            {
+                currentString += inputHandling.charify(static_information.controls[5].ToString());
+                if (startKey == -1)
+                {
+                    startKey = 5;
+                }
+                playTone(5, startKey);
+
+                // Debug.Log(currentString);
+            }
+            else if (Input.GetKeyDown(static_information.controls[6]))
+            {
+                currentString += inputHandling.charify(static_information.controls[6].ToString());
+                if (startKey == -1)
+                {
+                    startKey = 6;
+                }
+                playTone(6, startKey);
+
+                // Debug.Log(currentString);
+            }
+            else if (Input.GetKeyDown(static_information.controls[7]))
+            {
+                currentString += inputHandling.charify(static_information.controls[7].ToString());
+                if (startKey == -1)
+                {
+                    startKey = 7;
+                }
+                playTone(7, startKey);
+
+                // Debug.Log(currentString);
+            }
+            else if (Input.GetKeyDown(static_information.controls[8]))
+            {
+                for (int i = 0; i < baseSpellList.Length; i++)
+                {
+                    if (currentString.Equals(baseSpellList[i]))
+                    {
+                        // Debug.Log("Successful Spell");
+                        currentString = "";
+                        startKey = -1;
+
+                        //call appropriate function
+                        switch (i)
+                        {
+                            case 0: //light spell
+                                //Debug.Log("Casting Light!");
+                                static_information.hero.GetComponentInChildren<self_spellcast_animation>().castSpell("light");
+                                cast_light_spell();
+                                break;
+                            case 1: //fireball spell
+                                //Debug.Log("Casting Fireball!");
+                                static_information.has_casted_fireball = true;
+                                for (int j = 0; j < static_information.fireballs.Length; j++)
+                                {
+                                    if (static_information.fireballs[j].GetComponent<SpriteRenderer>().enabled == false)
+                                    {
+                                        static_information.fireballs[j].transform.position = static_information.hero.transform.position;
+                                        static_information.fireballs[j].GetComponent<fireball_animation>().castFireball();
+                                        break;
+                                    }
+                                }
+                                static_information.hero.GetComponentInChildren<self_spellcast_animation>().castSpell("fireball");
+                                break;
+                            case 2: //healing spell
+                                //Debug.Log("Casting Heal!");
+                                static_information.hero.GetComponentInChildren<self_spellcast_animation>().castSpell("heal");
+                                static_information.hero.GetComponent<hero_act>().healDamage();
+                                break;
+                            case 3: //mario spell
+                                break;
+                            case 4: //beethoven spell
+                                break;
+                            case 5: //sonic spell
+                                break;
+                        }
+
+                        return;
+                    }
+                }
+                // Debug.Log("Spell Failed");
+                currentString = "";
+                startKey = -1;
+            }
         }
+    }
+
+    void cast_light_spell()
+    {
+        int room = static_information.which_room_am_I_in(static_information.hero.transform.position.x, static_information.hero.transform.position.y);
+        string light_id = "light_machine (" + room + ")";
+        GameObject light_machine = GameObject.Find(light_id);
+        light_machine.GetComponent<simple_light>().addLight();
     }
 
     //plays the note
     protected void playTone(int key, int start)
     {
-        Debug.Log("Played: " + key + ", " + start);
+        // Debug.Log("Played: " + key + ", " + start);
 
         float note = -1;
         var transpose = -4;
