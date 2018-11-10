@@ -421,6 +421,10 @@ public class inputHandling : MonoBehaviour {
             }
             i.enabled = visibility;
         }
+        foreach (Text t in parent.GetComponentsInChildren<Text>())
+        {
+            t.enabled = visibility;
+        }
     }
 
     // Assumes the @param input is the toString of a KeyCode, and turns it into a 
