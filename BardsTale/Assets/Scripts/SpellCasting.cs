@@ -165,6 +165,7 @@ public class SpellCasting : MonoBehaviour {
                             case 4: //beethoven spell
                                 break;
                             case 5: //sonic spell
+                                static_information.hero.GetComponent<hero_move>().speed += 0.02f;
                                 break;
                         }
 

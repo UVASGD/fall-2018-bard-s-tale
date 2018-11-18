@@ -5,6 +5,7 @@ using UnityEngine;
 public class hero_move : MonoBehaviour {
 
     public float speed;
+    private float baseSpeed;
 
     // 0 is up, 1 is left, 2 is down, 3 is right
     public int moveDir;
@@ -13,11 +14,22 @@ public class hero_move : MonoBehaviour {
 	void Start ()
     {
         moveDir = 0;
+        baseSpeed = speed;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         checkMoves();
+
+        //decrease speed if got boost
+        if(speed > baseSpeed)
+        {
+            speed -= 0.001f * Time.deltaTime;
+        }
+        else if(speed < baseSpeed)
+        {
+            speed = baseSpeed;
+        }
 	}
 
     void checkMoves()

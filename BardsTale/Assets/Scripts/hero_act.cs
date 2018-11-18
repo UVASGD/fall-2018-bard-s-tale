@@ -11,6 +11,7 @@ public class hero_act : MonoBehaviour {
 	void Start ()
     {
         health = 5;
+        static_information.Awake();
 	}
 	
 	// Update is called once per frame
