@@ -83,6 +83,22 @@ public class skeleton_act : MonoBehaviour {
                             spit();
                             spit_cooldown = max_spit_cooldown;
                         }
+                        else if (distance_to_hero() <= 0.2f)
+                        {
+                            is_attacking = true;
+                            took_damage = false;
+                            if (damage_cooldown > 0)
+                            {
+                                damage_cooldown--;
+                            }
+                            else
+                            {
+                                static_information.hero.GetComponent<hero_act>().takeDamage();
+                                damage_cooldown = 5 * GetComponent<boss_animation_script>().cooldown_max;
+                            }
+
+                            move_direction = -1;
+                        }
                         else
                         {
                             is_attacking = false;
@@ -209,7 +225,7 @@ public class skeleton_act : MonoBehaviour {
             else if (!is_boss)
             {
                 // Debug.Log("Skeleton is dead!");
-                GetComponent<SpriteRenderer>().color = Color.gray;
+                //GetComponent<SpriteRenderer>().color = Color.gray;
 
                 //revive
                 int room = static_information.which_room_am_I_in(transform.position.x, transform.position.y);
@@ -247,6 +263,10 @@ public class skeleton_act : MonoBehaviour {
             {
                 GetComponent<boss_animation_script>().frame_offset = 0;
                 GetComponent<boss_animation_script>().dying = true;
+            }
+            else if (is_dead)
+            {
+                GetComponent<skeleton_animation_script>().dying = true;
             }
             // Debug.Log("Skeleton took damage! Health is: " + health);
         }

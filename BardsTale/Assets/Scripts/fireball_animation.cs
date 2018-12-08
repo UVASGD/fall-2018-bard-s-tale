@@ -110,7 +110,15 @@ public class fireball_animation : MonoBehaviour
     {
         foreach (GameObject g in static_information.enemies)
         {
-            Vector2 dimensions = g.GetComponent<skeleton_act>().dimensions;
+            Vector2 dimensions;
+            if (g.GetComponent<skeleton_act>() != null)
+            {
+                dimensions = g.GetComponent<skeleton_act>().dimensions;
+            }
+            else
+            {
+                dimensions = g.GetComponent<Zombie_act>().dimensions;
+            }
             Vector2 differences = new Vector2(dimensions.x + my_dimensions.x, dimensions.y + my_dimensions.y);
             if (Mathf.Abs(g.transform.position.x - transform.position.x) < differences.x)
             {
@@ -120,7 +128,9 @@ public class fireball_animation : MonoBehaviour
 
                     exploding = true;
                     animation_offset = 18;
-                    g.GetComponent<skeleton_act>().takeDamage();
+                    if (g.GetComponent<skeleton_act>() != null)
+                    { g.GetComponent<skeleton_act>().takeDamage(); }
+                    else { g.GetComponent<Zombie_act>().takeDamage(); }
                 }
             }
         }

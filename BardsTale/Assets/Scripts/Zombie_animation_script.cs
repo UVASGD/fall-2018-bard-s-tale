@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class skeleton_animation_script : MonoBehaviour {
+public class Zombie_animation_script : MonoBehaviour {
 
     public string path;
     public int[] animationLengths;
@@ -17,11 +17,9 @@ public class skeleton_animation_script : MonoBehaviour {
     private int counter = 0;
     private int cooldown;
     public int cooldown_max = 4;
-    public bool dying = false;
 
-	// Use this for initialization
-	void Start ()
-    {
+    // Use this for initialization
+    void Start () {
         spritesList = Resources.LoadAll<Sprite>(path);
         // Debug.Log(spritesList.Length);
 
@@ -30,7 +28,7 @@ public class skeleton_animation_script : MonoBehaviour {
         animation_type_offset = 0;
 
         // last animation + start of last animation
-        animation_type_offset_incrementer = animationStarts[animationStarts.Length - 1] + animationLengths[animationLengths.Length - 1];
+        animation_type_offset_incrementer = 13;
 
         cooldown = cooldown_max;
     }
@@ -38,64 +36,70 @@ public class skeleton_animation_script : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (dying && animationStart < 44)
+        if (GetComponent<Zombie_act>().is_dead)
         {
-            animationStart = 44;
-            animationLength = 6;
-            animation_type_offset = 0;
-        }
-
-        if (!dying && GetComponent<skeleton_act>().is_dead)
-        {
-            GetComponent<SpriteRenderer>().color = Color.gray;
             return;
         }
 
-        if (!dying)
+        // this was a nice idea but I'm not sticking with it until it works correctly.
+        bool animation_change = true;
+        foreach (int i in animationStarts)
+        {
+            // we can change animations when idling or walking at any time, but I want damage and attack to actually go through.
+            if (i == animationStarts[0] || i == animationStarts[1])
+            {
+                if (counter == (i - 1) + animation_type_offset)
+                {
+                    animation_change = true;
+                }
+            }
+        }
+
+        if (animation_change)
         {
             // CHANGE FRAME
-            if (GetComponent<skeleton_act>().move_direction == -1)
+            if (GetComponent<Zombie_act>().move_direction == -1)
             {
                 animationLength = animationLengths[0]; // 2
                 animationStart = animationStarts[0]; // 0
             }
-            if (GetComponent<skeleton_act>().move_direction != -1)
+            if (GetComponent<Zombie_act>().move_direction != -1)
             {
-                animationLength = animationLengths[1]; // 3
+                animationLength = animationLengths[1]; // 4
                 animationStart = animationStarts[1]; // 2
             }
-            if (skeleton_act.is_attacking)
+            if (Zombie_act.is_attacking)
             {
-                animationLength = animationLengths[2]; // 5
-                animationStart = animationStarts[2]; // 5
+                animationLength = animationLengths[2]; // 4
+                animationStart = animationStarts[2]; // 6
             }
-            if (skeleton_act.took_damage)
+            if (Zombie_act.took_damage)
             {
                 animationLength = animationLengths[3]; // 4
                 animationStart = animationStarts[3]; // 10
             }
 
-            if (GetComponent<skeleton_act>().move_direction == 2)
+            if (GetComponent<Zombie_act>().move_direction == 2)
             {
-                animation_type_offset = 2 * animation_type_offset_incrementer;
+                animation_type_offset = 0;
                 if (GetComponent<SpriteRenderer>().flipX)
                 {
                     GetComponent<SpriteRenderer>().flipX = false;
                 }
             }
-            if (GetComponent<skeleton_act>().move_direction == 3)
+            if (GetComponent<Zombie_act>().move_direction == 3)
             {
-                animation_type_offset = 2 * animation_type_offset_incrementer;
+                animation_type_offset = 0;
                 if (GetComponent<SpriteRenderer>().flipX == false)
                 {
                     GetComponent<SpriteRenderer>().flipX = true;
                 }
             }
-            if (GetComponent<skeleton_act>().move_direction == 1)
+            if (GetComponent<Zombie_act>().move_direction == 1)
             {
                 animation_type_offset = animation_type_offset_incrementer;
             }
-            if (GetComponent<skeleton_act>().move_direction == 0)
+            if (GetComponent<Zombie_act>().move_direction == 0)
             {
                 animation_type_offset = 0;
             }
@@ -109,16 +113,10 @@ public class skeleton_animation_script : MonoBehaviour {
             //Debug.Log("frame " + frameNumber);
             GetComponent<SpriteRenderer>().sprite = spritesList[frameNumber];
             cooldown = cooldown_max;
-            if (frameNumber == 42 && counter > 6)
-            {
-                dying = false;
-            }
         }
         else
         {
             cooldown--;
         }
-
-
     }
 }
