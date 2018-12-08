@@ -15,6 +15,9 @@ public class simple_light : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        // minimum alpha value = static_information.max_light_level - 15.0f
+        // maximum alpha value = static_information.max_light_level
+
         alpha = (alpha >= static_information.max_light_level - 15.0f)?static_information.max_light_level - 15.0f:
             (alpha + (0.001f * static_information.max_light_level));
 

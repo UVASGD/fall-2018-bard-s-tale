@@ -38,7 +38,9 @@ public class Zombie_act : MonoBehaviour {
         is_attacking = false;
         took_damage = false;
         move_direction = 0;
-        
+
+        health = 3;
+
         recoil_cooldown = 0;
         damage_cooldown = 0;
     }
@@ -65,7 +67,7 @@ public class Zombie_act : MonoBehaviour {
                     else
                     {
                         static_information.hero.GetComponent<hero_act>().takeDamage();
-                        damage_cooldown = 5 * GetComponent<skeleton_animation_script>().cooldown_max;
+                        damage_cooldown = 5 * GetComponent<Zombie_animation_script>().cooldown_max;
                     }
 
                     move_direction = -1;
@@ -120,6 +122,10 @@ public class Zombie_act : MonoBehaviour {
                         { transform.position = new_position; }
                     }
                 }
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().color = Color.gray;
             }
         }
 

@@ -165,6 +165,9 @@ public class SpellCasting : MonoBehaviour {
                             case 4: //beethoven spell
                                 break;
                             case 5: //sonic spell
+                                Debug.Log("Casting Speed!");
+                                // static_information.hero.GetComponentInChildren<self_spellcast_animation>().castSpell("speed");
+                                static_information.hero.GetComponentInChildren<speed_handling>().castSpeed();
                                 break;
                         }
 

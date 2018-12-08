@@ -38,10 +38,11 @@ public class skeleton_animation_script : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if (dying && animationStart < 44)
+        if (dying && animationStart < 43)
         {
-            animationStart = 44;
+            animationStart = 43;
             animationLength = 6;
+            counter = 0;
             animation_type_offset = 0;
         }
 
@@ -107,9 +108,9 @@ public class skeleton_animation_script : MonoBehaviour {
             // INCREMENT FRAME
             int frameNumber = animation_type_offset + animationStart + ((counter++) % animationLength);
             //Debug.Log("frame " + frameNumber);
-            GetComponent<SpriteRenderer>().sprite = spritesList[frameNumber];
+            GetComponent<SpriteRenderer>().sprite = spritesList[frameNumber % spritesList.Length];
             cooldown = cooldown_max;
-            if (frameNumber == 42 && counter > 6)
+            if (counter % animationLength == 0)
             {
                 dying = false;
             }
