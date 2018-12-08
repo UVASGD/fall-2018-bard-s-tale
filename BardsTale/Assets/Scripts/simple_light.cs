@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class simple_light : MonoBehaviour {
 
-    float alpha = 0;
+    public float alpha = 0;
     SpriteRenderer light_renderer;
 
 	// Use this for initialization

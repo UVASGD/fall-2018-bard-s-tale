@@ -6,6 +6,8 @@ public class boss_animation_script : MonoBehaviour {
 
     public string path;
 
+    public string healing_path = 'Sprites/Enemies/BossHeal';
+
     SpriteRenderer r;
     Sprite[] spritesList;
 
@@ -18,6 +20,7 @@ public class boss_animation_script : MonoBehaviour {
 
     public bool spitting;
     public bool dying;
+    public bool healing;
 
     Vector2[] random_spawn_areas = new Vector2[] { new Vector2(8.020554f, 6.153f), new Vector2(8.020554f, 8.059f), new Vector2(11.155f, 8.059f), new Vector2(11.14f, 6.16f) };
 

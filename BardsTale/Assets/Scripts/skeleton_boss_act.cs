@@ -68,10 +68,10 @@ public class skeleton_boss_act : MonoBehaviour
 
                 string light_id = "light_machine (" + roomNumber + ")";
                 GameObject light_machine = GameObject.Find(light_id);
-                float lightLevel = light_machine.GetComponent<simple_light>().getCurrentLightLevel();
+                float lightLevel = light_machine.GetComponent<simple_light>().alpha;
 
                 //healing when light levels are 0
-                if (lightLevel == 0)
+                if (lightLevel == static_information.max_light_level - 15.0f)
                 {
                     healing_cooldown -= Time.deltaTime;
                     if(healing_cooldown < 0)

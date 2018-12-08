@@ -231,9 +231,9 @@ public class skeleton_act : MonoBehaviour {
                 int room = static_information.which_room_am_I_in(transform.position.x, transform.position.y);
                 string light_id = "light_machine (" + room + ")";
                 GameObject light_machine = GameObject.Find(light_id);
-                float lightLevel = light_machine.GetComponent<simple_light>().getCurrentLightLevel();
+                float lightLevel = light_machine.GetComponent<simple_light>().alpha;
 
-                if(lightLevel == 0)
+                if(lightLevel == static_information.max_light_level - 15.0f)
                 {
                     GetComponent<SpriteRenderer>().color = Color.white;
                     is_dead = false;
