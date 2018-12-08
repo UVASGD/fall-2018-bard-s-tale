@@ -1,0 +1,45 @@
+Hero Prefab Settings:
+sprite: fwalk1
+Scripts:
+Bard_animation_script
+	Path = "Sprites/Bard"
+	Animation Starts.Length = 4
+		Elements = [0, 4, 8, 12]
+	Animation Lengths.Length = 4
+		Elements = [4, 4, 4, 4]
+	Cooldown = 4
+Hero_move
+	Speed = 0.03
+	Move Dir = 0
+Hero_act
+	Health = 5
+
+Skeleton Prefab Settings:
+sprite: skeleton_frame1
+Scripts:
+Skeleton_animation_script
+	Path = "Sprites/Enemies/Skeleton"
+	Animation Starts.Length = 4
+		Elements = [0, 2, 5, 10]
+	Animation Lengths.Length = 4
+		Elements = [2, 3, 5, 4]
+	Cooldown_max = 4
+Skeleton_act
+	Dimensions X= 0.067, Y=0.167
+	Move_direction = 0
+	Movespeed = 0.02
+	Is_dead = false
+	Is_boss = false
+
+Fireball Prefab Settings:
+sprite: fireball_1_down1
+Scripts:
+fireball_animation
+	Path = "Sprites/Spells/Projectiles/Fireball"
+	Speed = 0.05
+
+INPUT_HANDLER Prefab Settings:
+Scripts:
+Input Handling
+	Cooldown = 0
+	Pause Parent, Spellbook Parent, Hideable Parent, Always On Parent, and Controls Parent are all set to None (Text)

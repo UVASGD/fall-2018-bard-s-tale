@@ -14,7 +14,7 @@ public class boss_animation_script : MonoBehaviour {
     public int frame_offset;
 
     int cooldown;
-    int cooldown_max = 4;
+    public int cooldown_max = 4;
 
     public bool spitting;
     public bool dying;

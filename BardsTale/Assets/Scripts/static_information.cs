@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public static class static_information {
     // USE THIS TO REFERENCE HOTKEYS, can easily verify within scripts
@@ -99,10 +100,17 @@ public static class static_information {
             if (is_in_bounds(g.transform.position))
             {
                 // Debug.Log("Found an enemy. Its life status: " + (g.GetComponent<skeleton_act>().is_dead ? "dead." : "alive."));
-                if (g.GetComponent<skeleton_act>().is_dead == false)
+                if (g.GetComponent<skeleton_act>() != null)
                 {
-                    return false;
+                    if (g.GetComponent<skeleton_act>().is_dead == false)
+                    { return false; }
                 }
+                else
+                {
+                    if (g.GetComponent<Zombie_act>().is_dead == false)
+                    { return false; }
+                }
+
             }
         }
         return true;
@@ -111,33 +119,40 @@ public static class static_information {
     // USE THIS TO FIGURE OUT WHICH ROOM YOU'RE IN
     public static int which_room_am_I_in(float x_coord, float y_coord)
     {
-        // nah, man. this is totally efficient, shut up
-        if (x_coord < 2.4 && x_coord > -2.4)
+        if (SceneManager.GetActiveScene().name.Equals("demo_overworld"))
         {
-            return 0;
-        }
-        else if (x_coord < 16.8 && x_coord > 12.0)
-        {
-            return 5;
-        }
-        else if (x_coord > 2.4 && x_coord < 7.2)
-        {
-            return 1;
-        }
-        else
-        {
-            if (y_coord <  1.8 && y_coord > -1.8)
+            // nah, man. this is totally efficient, shut up
+            if (x_coord < 2.4 && x_coord > -2.4)
             {
-                return 2;
+                return 0;
             }
-            else if (y_coord < 5.4 && y_coord > 1.8)
+            else if (x_coord < 16.8 && x_coord > 12.0)
             {
-                return 3;
+                return 5;
             }
-            else if (y_coord < 8.2 && y_coord > 5.4)
+            else if (x_coord > 2.4 && x_coord < 7.2)
             {
-                return 4;
+                return 1;
             }
+            else
+            {
+                if (y_coord < 1.8 && y_coord > -1.8)
+                {
+                    return 2;
+                }
+                else if (y_coord < 5.4 && y_coord > 1.8)
+                {
+                    return 3;
+                }
+                else if (y_coord < 8.2 && y_coord > 5.4)
+                {
+                    return 4;
+                }
+            }
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("demo_level2"))
+        {
+
         }
         return -1;
     }
