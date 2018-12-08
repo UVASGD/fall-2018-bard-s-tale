@@ -86,7 +86,7 @@ public static class static_information {
 
     // USE THIS TO CHANGE LIGHT LEVELS
     public static float max_light_level = 30.0f;
-    public static float[] room_light_levels = new float[] { 0, 0, 0, 0, 0, 0 };
+    public static float[] room_light_levels = new float[] { 0, 0, 0, 0, 0, 0 };//im pretty sure no one is actually using this, and it's useless so uhhh don't use it
     public static float maximumDarknessOpacity = 0.06f;
 
     // USE THESE FOR SOME DOOR CONDITIONS
@@ -154,6 +154,32 @@ public static class static_information {
             {
                 return true;
             }
+        }
+        return false;
+    }
+
+    public static bool is_in_x_bounds(Vector2 position)
+    {
+        // grab important characteristics from main camera
+        Vector2 central_cam_position = camera.transform.position;
+        Vector2 bottom_left_corner = new Vector2(central_cam_position.x - camera_corner_offset[0], central_cam_position.y - camera_corner_offset[1]);
+        Vector2 top_right_corner = new Vector2(central_cam_position.x + camera_corner_offset[0], central_cam_position.y + camera_corner_offset[1]);
+        if (bottom_left_corner.x < position.x && position.x < top_right_corner.x)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public static bool is_in_y_bounds(Vector2 position)
+    {
+        // grab important characteristics from main camera
+        Vector2 central_cam_position = camera.transform.position;
+        Vector2 bottom_left_corner = new Vector2(central_cam_position.x - camera_corner_offset[0], central_cam_position.y - camera_corner_offset[1]);
+        Vector2 top_right_corner = new Vector2(central_cam_position.x + camera_corner_offset[0], central_cam_position.y + camera_corner_offset[1]);
+        if (bottom_left_corner.y < position.y && position.y < top_right_corner.y)
+        {
+            return true;
         }
         return false;
     }
