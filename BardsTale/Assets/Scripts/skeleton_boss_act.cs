@@ -146,11 +146,11 @@ public class skeleton_boss_act : MonoBehaviour
                             // if neither x_diff nor y_diff are true, we won't change new_position.
                             if (x_direct != 0)
                             {
-                                new_position.x += 0.5 * (x_direct) * (movespeed / Mathf.Sqrt(Mathf.Abs(x_direct) + Mathf.Abs(y_direct)));
+                                new_position.x += 0.5f * (x_direct) * (movespeed / Mathf.Sqrt(Mathf.Abs(x_direct) + Mathf.Abs(y_direct)));
                             }
                             if (y_direct != 0)
                             {
-                                new_position.y += 0.5 * (y_direct) * (movespeed / Mathf.Sqrt(Mathf.Abs(x_direct) + Mathf.Abs(y_direct)));
+                                new_position.y += 0.5f * (y_direct) * (movespeed / Mathf.Sqrt(Mathf.Abs(x_direct) + Mathf.Abs(y_direct)));
                             }
 
                             if (static_information.is_in_bounds(new_position))

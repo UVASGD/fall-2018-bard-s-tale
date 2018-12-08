@@ -6,7 +6,7 @@ public class boss_animation_script : MonoBehaviour {
 
     public string path;
 
-    public string healing_path = 'Sprites/Enemies/BossHeal';
+    public string healing_path = "Sprites/Enemies/BossHeal";
 
     SpriteRenderer r;
     Sprite[] spritesList;
